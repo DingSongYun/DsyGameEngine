@@ -1,0 +1,87 @@
+# 定义源文件组
+set(MAIN_SOURCES
+	main.cpp
+)
+
+set(CORE_FOUNDATION_SOURCES
+	Core/CoreTypes.h
+	Core/CoreMinimal.h
+)
+
+set(CORE_LOGGING_SOURCES
+	Core/Logging/Logger.cpp
+	Core/Logging/Logger.h
+	Core/Logging/LogSink.h
+	Core/Logging/LogFormatter.h
+)
+
+set(RHI_SOURCES
+	RHI/RHIDefinitions.h
+	RHI/RHIDevice.h
+	RHI/RHICommandQueue.h
+	RHI/RHISwapChain.h
+	RHI/RHIFence.h
+	RHI/RHICommandList.h
+	RHI/RHITexture.h
+)
+
+set(RHI_D3D12_SOURCES
+	RHI/D3D12/D3D12Common.h
+	RHI/D3D12/D3D12Common.cpp
+	RHI/D3D12/D3D12Device.h
+	RHI/D3D12/D3D12Device.cpp
+	RHI/D3D12/D3D12CommandList.h
+	RHI/D3D12/D3D12CommandList.cpp
+	RHI/D3D12/D3D12CommandQueue.h
+	RHI/D3D12/D3D12CommandQueue.cpp
+	RHI/D3D12/D3D12Fence.h
+	RHI/D3D12/D3D12Fence.cpp
+	RHI/D3D12/D3D12SwapChain.h
+	RHI/D3D12/D3D12SwapChain.cpp
+)
+
+set(PLATFORM_WINDOWS_SOURCES
+	Platform/Windows/d3dx12.h
+)
+
+# Runtime 可执行文件
+add_executable(DsyGameEngine
+	${MAIN_SOURCES}
+	${CORE_FOUNDATION_SOURCES}
+	${CORE_LOGGING_SOURCES}
+	${RHI_SOURCES}
+	${RHI_D3D12_SOURCES}
+	${PLATFORM_WINDOWS_SOURCES}
+)
+
+# Visual Studio文件夹组织
+source_group("" FILES ${MAIN_SOURCES})
+source_group("Core" FILES ${CORE_FOUNDATION_SOURCES}) 
+source_group("Core\\Logging" FILES ${CORE_LOGGING_SOURCES})
+source_group("RHI" FILES ${RHI_SOURCES})
+source_group("RHI\\D3D12" FILES ${RHI_D3D12_SOURCES})
+source_group("Platform\\Windows" FILES ${PLATFORM_WINDOWS_SOURCES})
+
+# 设置包含目录
+target_include_directories(DsyGameEngine PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/Core
+)
+
+# 设置C++20标准
+target_compile_features(DsyGameEngine PRIVATE cxx_std_20)
+
+# Windows平台特定配置
+if(WIN32)
+	target_compile_definitions(DsyGameEngine PRIVATE
+		WIN32_LEAN_AND_MEAN
+		NOMINMAX
+	)
+	
+	# 链接D3D12相关库
+	target_link_libraries(DsyGameEngine PRIVATE
+		d3d12.lib
+		dxgi.lib
+		d3dcompiler.lib
+	)
+endif()

@@ -1,0 +1,23 @@
+# Runtime 可执行文件
+add_executable(DsyGameEngine
+	main.cpp
+
+	# === Core 模块 ===
+	Core/Logging/Logger.cpp
+)
+
+target_include_directories(DsyGameEngine PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/Core
+)
+
+# 设置C++20标准
+target_compile_features(DsyGameEngine PRIVATE cxx_std_20)
+
+# Windows平台特定配置
+if(WIN32)
+	target_compile_definitions(DsyGameEngine PRIVATE
+		WIN32_LEAN_AND_MEAN
+		NOMINMAX
+	)
+endif()
