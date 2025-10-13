@@ -39,5 +39,5 @@ int main()
 
 	// GApp->ShutdownModule();
 
-	return 0;
+	return ret;
 }

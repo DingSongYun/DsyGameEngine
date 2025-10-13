@@ -1,6 +1,7 @@
 #include "D3D12SwapChain.h"
 #include "D3D12Device.h"
 #include "D3D12CommandQueue.h"
+#include "D3D12Texture.h"
 
 D3D12SwapChain::~D3D12SwapChain()
 {
@@ -21,6 +22,7 @@ bool D3D12SwapChain::Initialize(D3D12Device* device, const RHISwapChainDesc& des
 		return false;
 	}
 
+	m_Device = device;
 	m_Width = desc.Width;
 	m_Height = desc.Height;
 	m_BufferCount = desc.BufferCount;
@@ -90,6 +92,7 @@ void D3D12SwapChain::Shutdown()
 {
 	ReleaseBackBuffers();
 	m_SwapChain.Reset();
+	m_Device = nullptr;
 }
 
 uint32_t D3D12SwapChain::GetCurrentBackBufferIndex() const
@@ -104,7 +107,17 @@ IRHITexture* D3D12SwapChain::GetBackBuffer(uint32_t Index) const
 		LOG_ERROR("D3D12SwapChain::GetBackBuffer() - Index out of range.");
 		return nullptr;
 	}
-	// TODO: 需要实现D3D12Texture类
+	// 假设已实现 D3D12Texture 类，并且其构造函数接受 ID3D12Resource* 和格式等参数
+	// 这里需要将 m_BackBuffers[Index] 包装为 D3D12Texture 实例并返回
+	// 例如:
+	D3D12Texture* texture = new D3D12Texture();
+	if (!texture->InitializeFromReource(m_Device, m_BackBuffers[Index].Get()))
+	{
+		LOG_ERROR("D3D12SwapChain::GetBackBuffer() - Failed to initialize D3D12Texture from back buffer resource.");
+		return nullptr;
+	}
+	
+	return texture;
 }
 
 void D3D12SwapChain::Present(uint32_t SyncInterval)

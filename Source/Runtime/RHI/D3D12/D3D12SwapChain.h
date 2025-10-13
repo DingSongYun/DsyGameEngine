@@ -20,6 +20,9 @@ private:
 	/** buffers */
 	std::vector<ComPtr<ID3D12Resource>> m_BackBuffers;
 
+	// 关联的D3D12设备
+	D3D12Device* m_Device = nullptr;
+
 	uint32_t m_Width = 0;
 	uint32_t m_Height = 0;
 	uint32_t m_BufferCount = 0;

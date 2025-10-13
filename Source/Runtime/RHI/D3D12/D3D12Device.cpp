@@ -90,7 +90,6 @@ bool D3D12Device::IsValid() const
 
 IRHICommandQueue* D3D12Device::GetCommandQueue(ERHICommandQueueType Type)
 {
-	// TODO:
 	switch (Type)
 	{
 	case ERHICommandQueueType::Graphics:

@@ -173,8 +173,14 @@ void D3D12CommandList::SetPipelineState(RHIHandler pipelineState)
 {
 	DE_ASSERT(m_commandList);
 
-	// TODO: 实现设置管道状态
-	LOG_WARN("D3D12CommandList::SetPipelineState() - Not implemented yet.");
+	if (!pipelineState)
+	{
+		LOG_ERROR("D3D12CommandList::SetPipelineState() - Invalid pipeline state provided.");
+		return;
+	}
+
+	ID3D12PipelineState* pso = reinterpret_cast<ID3D12PipelineState*>(pipelineState);
+	m_commandList->SetPipelineState(pso);
 }
 
 void D3D12CommandList::SetVertexBuffer(uint32_t slot, IRHIBuffer* buffer)
