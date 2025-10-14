@@ -3,26 +3,26 @@
 #include "RHI/RHIDefinitions.h"
 
 /**
- * ÎÆÀíÃèÊö·û
+ * çº¹ç†æè¿°ç¬¦
  */
 struct RHITextureDesc
 {
-	uint32_t			width = 1;						// ÎÆÀí¿í¶È
-	uint32_t			height = 1;						// ÎÆÀí¸ß¶È
-	uint32_t			depth = 1;						// ÎÆÀíÉî¶È£¨¶ÔÓÚ3DÎÆÀí£©
-	uint32_t			mipLevels = 1;					// MIP¼¶±ğÊıÁ¿
-	uint32_t			arraySize = 1;					// ÎÆÀíÊı×é´óĞ¡£¨¶ÔÓÚÊı×éÎÆÀí£©
-	ERHIFormat			format = ERHIFormat::UNKNOWN;	// ÎÆÀí¸ñÊ½
-	uint32_t			sampleCount = 1;				// ²ÉÑùÊıÁ¿
-	uint32_t			sampleQuality = 0;				// ²ÉÑùÖÊÁ¿µÈ¼¶
-	uint32_t			usageFlags = 0;					// Ê¹ÓÃ±êÖ¾£¨Î»ÑÚÂë£©
-	uint32_t 			bindFlags = 0;					// °ó¶¨±êÖ¾£¨Î»ÑÚÂë£©
-	uint32_t			miscFlags = 0;					// ÆäËû±êÖ¾£¨Î»ÑÚÂë£©
-	uint32_t			cpuAccessFlags = 0;				// CPU·ÃÎÊ±êÖ¾£¨Î»ÑÚÂë£©
+	uint32_t			width = 1;						// çº¹ç†å®½åº¦
+	uint32_t			height = 1;						// çº¹ç†é«˜åº¦
+	uint32_t			depth = 1;						// çº¹ç†æ·±åº¦ï¼ˆå¯¹äº3Dçº¹ç†ï¼‰
+	uint32_t			mipLevels = 1;					// MIPçº§åˆ«æ•°é‡
+	uint32_t			arraySize = 1;					// çº¹ç†æ•°ç»„å¤§å°ï¼ˆå¯¹äºæ•°ç»„çº¹ç†ï¼‰
+	ERHIFormat			format = ERHIFormat::UNKNOWN;	// çº¹ç†æ ¼å¼
+	uint32_t			sampleCount = 1;				// é‡‡æ ·æ•°é‡
+	uint32_t			sampleQuality = 0;				// é‡‡æ ·è´¨é‡ç­‰çº§
+	uint32_t			usageFlags = 0;					// ä½¿ç”¨æ ‡å¿—ï¼ˆä½æ©ç ï¼‰
+	uint32_t 			bindFlags = 0;					// ç»‘å®šæ ‡å¿—ï¼ˆä½æ©ç ï¼‰
+	uint32_t			miscFlags = 0;					// å…¶ä»–æ ‡å¿—ï¼ˆä½æ©ç ï¼‰
+	uint32_t			cpuAccessFlags = 0;				// CPUè®¿é—®æ ‡å¿—ï¼ˆä½æ©ç ï¼‰
 };
 
 /**
- * ÎÆÀí½Ó¿Ú
+ * çº¹ç†æ¥å£
  */
 class IRHITexture
 {

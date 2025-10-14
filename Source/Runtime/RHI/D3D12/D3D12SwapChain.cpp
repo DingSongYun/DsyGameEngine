@@ -28,7 +28,7 @@ bool D3D12SwapChain::Initialize(D3D12Device* device, const RHISwapChainDesc& des
 	m_BufferCount = desc.BufferCount;
 	m_Format = desc.Format;
 
-	// ´´½¨½»»»Á´
+	// åˆ›å»ºäº¤æ¢é“¾
 	DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {
 		.Width = m_Width,
 		.Height = m_Height,
@@ -74,10 +74,10 @@ bool D3D12SwapChain::Initialize(D3D12Device* device, const RHISwapChainDesc& des
 		return false;
 	}
 
-	// ½ûÓÃAlt+EnterÈ«ÆÁÇĞ»»
+	// ç¦ç”¨Alt+Enterå…¨å±åˆ‡æ¢
 	device->GetDXGIFactory()->MakeWindowAssociation(reinterpret_cast<HWND>(desc.WindowHandle), DXGI_MWA_NO_ALT_ENTER);
 
-	// ´´½¨ºóÌ¨»º³åÇø
+	// åˆ›å»ºåå°ç¼“å†²åŒº
 	if (!CreateBackBuffers())
 	{
 		LOG_ERROR("D3D12SwapChain::Initialize() - Failed to create back buffers.");
@@ -107,9 +107,6 @@ IRHITexture* D3D12SwapChain::GetBackBuffer(uint32_t Index) const
 		LOG_ERROR("D3D12SwapChain::GetBackBuffer() - Index out of range.");
 		return nullptr;
 	}
-	// ¼ÙÉèÒÑÊµÏÖ D3D12Texture Àà£¬²¢ÇÒÆä¹¹Ôìº¯Êı½ÓÊÜ ID3D12Resource* ºÍ¸ñÊ½µÈ²ÎÊı
-	// ÕâÀïĞèÒª½« m_BackBuffers[Index] °ü×°Îª D3D12Texture ÊµÀı²¢·µ»Ø
-	// ÀıÈç:
 	D3D12Texture* texture = new D3D12Texture();
 	if (!texture->InitializeFromReource(m_Device, m_BackBuffers[Index].Get()))
 	{
@@ -135,9 +132,9 @@ bool D3D12SwapChain::Resize(uint32_t Width, uint32_t Height)
 {
 	DE_ASSERT(m_SwapChain);
 	if (m_Width == Width && m_Height == Height)
-		return true; // ³ß´çÎ´±ä»¯
+		return true; // å°ºå¯¸æœªå˜åŒ–
 
-	// ÊÍ·ÅÏÖÓĞºóÌ¨»º³åÇø
+	// é‡Šæ”¾ç°æœ‰åå°ç¼“å†²åŒº
 	ReleaseBackBuffers();
 
 	HRESULT hr = m_SwapChain->ResizeBuffers(
@@ -156,7 +153,7 @@ bool D3D12SwapChain::Resize(uint32_t Width, uint32_t Height)
 	m_Width = Width;
 	m_Height = Height;
 
-	// ÖØĞÂ´´½¨ºóÌ¨»º³åÇø
+	// é‡æ–°åˆ›å»ºåå°ç¼“å†²åŒº
 	return CreateBackBuffers();
 }
 

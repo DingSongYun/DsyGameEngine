@@ -20,31 +20,31 @@ bool D3D12Device::Initialize()
 
 	LOG_INFO("Initializing D3D12Device...");
 
-	// ÆôÓÃµ÷ÊÔ
+	// å¯ç”¨è°ƒè¯•
 	D3D12Utils::EnableDebugLayer();
 
-	// 1. ´´½¨DXGI¹¤³§
+	// 1. åˆ›å»ºDXGIå·¥å‚
 	if (!CreateDXGIFactory())
 	{
 		LOG_ERROR("Failed to create DXGI Factory.");
 		return false;
 	}
 
-	// 2. ³õÊ¼»¯ÏÔ¿¨ÊÊÅäÆ÷
+	// 2. åˆå§‹åŒ–æ˜¾å¡é€‚é…å™¨
 	if (!InitHardwareAdapter())
 	{
 		LOG_ERROR("Failed to initialize hardware adapter.");
 		return false;
 	}
 
-	// 3. ´´½¨D3D12Éè±¸
+	// 3. åˆ›å»ºD3D12è®¾å¤‡
 	if (!CreateD3D12Device())
 	{
 		LOG_ERROR("Failed to create D3D12 Device.");
 		return false;
 	}
 
-	// 4. ´´½¨ÃüÁî¶ÓÁĞ
+	// 4. åˆ›å»ºå‘½ä»¤é˜Ÿåˆ—
 	if (!CreateCommandQueues())
 	{
 		LOG_ERROR("Failed to create command queues.");
@@ -65,15 +65,15 @@ void D3D12Device::Shutdown()
 
 	LOG_INFO("Shutting down D3D12Device...");
 
-	// È·±£ËùÓĞGPUÈÎÎñÍê³É
+	// ç¡®ä¿æ‰€æœ‰GPUä»»åŠ¡å®Œæˆ
 	WaitForIdle();
 
-	// ÊÍ·ÅÃüÁî¶ÓÁĞ
+	// é‡Šæ”¾å‘½ä»¤é˜Ÿåˆ—
 	m_GraphicsQueue.reset();
 	m_ComputeQueue.reset();
 	m_CopyQueue.reset();
 
-	// ÇåÀíD3D12¶ÔÏó
+	// æ¸…ç†D3D12å¯¹è±¡
 	m_Device.Reset();
 	m_Adapter.Reset();
 	m_Factory.Reset();
@@ -169,7 +169,7 @@ bool D3D12Device::CreateD3D12Device()
 {
 	HRESULT hr = D3D12CreateDevice(
 		m_Adapter.Get(),
-		D3D_FEATURE_LEVEL_11_0, // ×îµÍÖ§³ÖµÄÌØĞÔ¼¶±ğ
+		D3D_FEATURE_LEVEL_11_0, // æœ€ä½æ”¯æŒçš„ç‰¹æ€§çº§åˆ«
 		IID_PPV_ARGS(&m_Device)
 	);
 
@@ -180,7 +180,7 @@ bool D3D12Device::CreateD3D12Device()
 	}
 
 #ifdef DE_DEBUG
-	// ÆôÓÃD3D12µ÷ÊÔĞÅÏ¢
+	// å¯ç”¨D3D12è°ƒè¯•ä¿¡æ¯
 	ComPtr<ID3D12InfoQueue> infoQueue;
 	if (SUCCEEDED(m_Device.As(&infoQueue)))
 	{
@@ -194,21 +194,21 @@ bool D3D12Device::CreateD3D12Device()
 
 bool D3D12Device::CreateCommandQueues()
 {
-	// ´´½¨GraphicsÃüÁî¶ÓÁĞ
+	// åˆ›å»ºGraphicså‘½ä»¤é˜Ÿåˆ—
 	m_GraphicsQueue = std::make_unique<D3D12CommandQueue>();
 	if (!m_GraphicsQueue->Initialize(this, ERHICommandQueueType::Graphics))
 	{
 		return false;
 	}
 
-	// ´´½¨ComputeÃüÁî¶ÓÁĞ
+	// åˆ›å»ºComputeå‘½ä»¤é˜Ÿåˆ—
 	m_ComputeQueue = std::make_unique<D3D12CommandQueue>();
 	if (!m_ComputeQueue->Initialize(this, ERHICommandQueueType::Compute))
 	{
 		return false;
 	}
 
-	// ´´½¨CopyÃüÁî¶ÓÁĞ
+	// åˆ›å»ºCopyå‘½ä»¤é˜Ÿåˆ—
 	m_CopyQueue = std::make_unique<D3D12CommandQueue>();
 	if (!m_CopyQueue->Initialize(this, ERHICommandQueueType::Copy))
 	{

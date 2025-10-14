@@ -8,7 +8,7 @@ class IRHIPiplineState;
 class IRHIBuffer;
 
 /**
- * RHIÃüÁîÁĞ±í½Ó¿Ú
+ * RHIå‘½ä»¤åˆ—è¡¨æ¥å£
  */
 class IRHICommandList
 {
@@ -16,108 +16,108 @@ public:
 	virtual ~IRHICommandList() = default;
 
 	// -----------------------------------------
-	// äÖÈ¾ÃüÁî
+	// æ¸²æŸ“å‘½ä»¤
 
 	/**
-	 * Çå³ıäÖÈ¾Ä¿±ê
+	 * æ¸…é™¤æ¸²æŸ“ç›®æ ‡
 	 *
-	 * @param renderTarget Ä¿±êäÖÈ¾ÎÆÀí
-	 * @param clearColor Çå³ıÑÕÉ«£¬RGBA¸ñÊ½
+	 * @param renderTarget ç›®æ ‡æ¸²æŸ“çº¹ç†
+	 * @param clearColor æ¸…é™¤é¢œè‰²ï¼ŒRGBAæ ¼å¼
 	 */
 	virtual void ClearRenderTarget(IRHITexture* renderTarget, const float* clearColor) = 0;
 
 	/**
-	 * Çå³ıÉî¶ÈÄ£°å»º³åÇø
+	 * æ¸…é™¤æ·±åº¦æ¨¡æ¿ç¼“å†²åŒº
 	 *
-	 * @param renderTarget Ä¿±êäÖÈ¾ÎÆÀí
-	 * @param depth Éî¶ÈÖµ£¬·¶Î§[0.0, 1.0]
-	 * @param stencil Ä£°åÖµ£¬·¶Î§[0, 255]
+	 * @param renderTarget ç›®æ ‡æ¸²æŸ“çº¹ç†
+	 * @param depth æ·±åº¦å€¼ï¼ŒèŒƒå›´[0.0, 1.0]
+	 * @param stencil æ¨¡æ¿å€¼ï¼ŒèŒƒå›´[0, 255]
 	 */
 	virtual void ClearDepthStencil(IRHITexture* renderTarget, float depth, uint8_t stencil) = 0;
 
 	/**
-	 * ÉèÖÃäÖÈ¾Ä¿±êºÍÉî¶ÈÄ£°å»º³åÇø
+	 * è®¾ç½®æ¸²æŸ“ç›®æ ‡å’Œæ·±åº¦æ¨¡æ¿ç¼“å†²åŒº
 	 *
-	 * @param numRenderTargets äÖÈ¾Ä¿±êÊıÁ¿
-	 * @param renderTargets äÖÈ¾Ä¿±êÊı×é
-	 * @param depthStencil Éî¶ÈÄ£°å»º³åÇø
+	 * @param numRenderTargets æ¸²æŸ“ç›®æ ‡æ•°é‡
+	 * @param renderTargets æ¸²æŸ“ç›®æ ‡æ•°ç»„
+	 * @param depthStencil æ·±åº¦æ¨¡æ¿ç¼“å†²åŒº
 	 */
 	virtual void SetRenderTargets(uint32_t numRenderTargets, IRHITexture* const* renderTargets, IRHITexture* depthStencil) = 0;
 
 	/**
-	 * ÉèÖÃÊÓ¿Ú
+	 * è®¾ç½®è§†å£
 	 *
-	 * @param x ÊÓ¿Ú×óÉÏ½ÇX×ø±ê
-	 * @param y ÊÓ¿Ú×óÉÏ½ÇY×ø±ê
-	 * @param width ÊÓ¿Ú¿í¶È
-	 * @param height ÊÓ¿Ú¸ß¶È
-	 * @param minDepth ÊÓ¿Ú×îĞ¡Éî¶È£¬·¶Î§[0.0, 1.0]
-	 * @param maxDepth ÊÓ¿Ú×î´óÉî¶È£¬·¶Î§[0.0, 1.0]
+	 * @param x è§†å£å·¦ä¸Šè§’Xåæ ‡
+	 * @param y è§†å£å·¦ä¸Šè§’Yåæ ‡
+	 * @param width è§†å£å®½åº¦
+	 * @param height è§†å£é«˜åº¦
+	 * @param minDepth è§†å£æœ€å°æ·±åº¦ï¼ŒèŒƒå›´[0.0, 1.0]
+	 * @param maxDepth è§†å£æœ€å¤§æ·±åº¦ï¼ŒèŒƒå›´[0.0, 1.0]
 	 */
 	virtual void SetViewport(float x, float y, float width, float height, float minDepth, float maxDepth) = 0;
 
 	/**
-	 * ÉèÖÃ²Ã¼ô¾ØĞÎ
+	 * è®¾ç½®è£å‰ªçŸ©å½¢
 	 *
-	 * @param left ²Ã¼ô¾ØĞÎ×ó±ß½ç
-	 * @param top ²Ã¼ô¾ØĞÎÉÏ±ß½ç
-	 * @param right ²Ã¼ô¾ØĞÎÓÒ±ß½ç
-	 * @param bottom ²Ã¼ô¾ØĞÎÏÂ±ß½ç
+	 * @param left è£å‰ªçŸ©å½¢å·¦è¾¹ç•Œ
+	 * @param top è£å‰ªçŸ©å½¢ä¸Šè¾¹ç•Œ
+	 * @param right è£å‰ªçŸ©å½¢å³è¾¹ç•Œ
+	 * @param bottom è£å‰ªçŸ©å½¢ä¸‹è¾¹ç•Œ
 	 */
 	virtual void SetScissorRect(int32_t left, int32_t top, int32_t right, int32_t bottom) = 0;
 
 	// -----------------------------------------
-	// ×ÊÔ´°ó¶¨
+	// èµ„æºç»‘å®š
 
 	/**
-	 * ÉèÖÃÍ¼ĞÎ¹ÜÏß×´Ì¬¶ÔÏó
+	 * è®¾ç½®å›¾å½¢ç®¡çº¿çŠ¶æ€å¯¹è±¡
 	 *
-	 * @param pipelineState Í¼ĞÎ¹ÜÏß×´Ì¬¶ÔÏó¾ä±ú
+	 * @param pipelineState å›¾å½¢ç®¡çº¿çŠ¶æ€å¯¹è±¡å¥æŸ„
 	 */
 	virtual void SetPipelineState(RHIHandler pipelineState) = 0;
 
 	/**
-	 * ÉèÖÃ¶¥µã»º³åÇø
+	 * è®¾ç½®é¡¶ç‚¹ç¼“å†²åŒº
 	 *
-	 * @param slot ¶¥µã»º³åÇø²å²Û
-	 * @param buffer ¶¥µã»º³åÇø¾ä±ú
+	 * @param slot é¡¶ç‚¹ç¼“å†²åŒºæ’æ§½
+	 * @param buffer é¡¶ç‚¹ç¼“å†²åŒºå¥æŸ„
 	 */
 	virtual void SetVertexBuffer(uint32_t slot, IRHIBuffer* buffer) = 0;
 
 	/**
-	 * ÉèÖÃË÷Òı»º³åÇø
+	 * è®¾ç½®ç´¢å¼•ç¼“å†²åŒº
 	 *
-	 * @param buffer Ë÷Òı»º³åÇø¾ä±ú
+	 * @param buffer ç´¢å¼•ç¼“å†²åŒºå¥æŸ„
 	 */
 	virtual void SetIndexBuffer(IRHIBuffer* buffer) = 0;
 
 	// -----------------------------------------
-	// »æÖÆÃüÁî
+	// ç»˜åˆ¶å‘½ä»¤
 
 	/**
-	 * »æÖÆ·ÇË÷ÒıÊµÀı»¯¼¸ºÎÌå
+	 * ç»˜åˆ¶éç´¢å¼•å®ä¾‹åŒ–å‡ ä½•ä½“
 	 *
-	 * @param vertexCount Ã¿¸öÊµÀıµÄ¶¥µãÊıÁ¿
-	 * @param instanceCount ÊµÀıÊıÁ¿
-	 * @param startVertex ÆğÊ¼¶¥µãÆ«ÒÆ
-	 * @param startInstance ÆğÊ¼ÊµÀıÆ«ÒÆ
+	 * @param vertexCount æ¯ä¸ªå®ä¾‹çš„é¡¶ç‚¹æ•°é‡
+	 * @param instanceCount å®ä¾‹æ•°é‡
+	 * @param startVertex èµ·å§‹é¡¶ç‚¹åç§»
+	 * @param startInstance èµ·å§‹å®ä¾‹åç§»
 	 */
 	virtual void DrawInstanced(uint32_t vertexCount, uint32_t instanceCount, uint32_t startVertex, uint32_t startInstance) = 0;
 
 	/**
-	 * »æÖÆË÷ÒıÊµÀı»¯¼¸ºÎÌå
+	 * ç»˜åˆ¶ç´¢å¼•å®ä¾‹åŒ–å‡ ä½•ä½“
 	 *
-	 * @param indexCount Ã¿¸öÊµÀıµÄË÷ÒıÊıÁ¿
-	 * @param instanceCount ÊµÀıÊıÁ¿
-	 * @param startIndex ÆğÊ¼Ë÷ÒıÆ«ÒÆ
-	 * @param baseVertex ¶¥µãÆ«ÒÆÁ¿
-	 * @param startInstance ÆğÊ¼ÊµÀıÆ«ÒÆ
+	 * @param indexCount æ¯ä¸ªå®ä¾‹çš„ç´¢å¼•æ•°é‡
+	 * @param instanceCount å®ä¾‹æ•°é‡
+	 * @param startIndex èµ·å§‹ç´¢å¼•åç§»
+	 * @param baseVertex é¡¶ç‚¹åç§»é‡
+	 * @param startInstance èµ·å§‹å®ä¾‹åç§»
 	 */
 	virtual void DrawIndexedInstanced(uint32_t indexCount, uint32_t instanceCount, uint32_t startIndex, int32_t baseVertex, uint32_t startInstance) = 0;
 
-	/** ×ÊÔ´ÆÁÕÏ */
+	/** èµ„æºå±éšœ */
 	virtual void ResourceBarrier(IRHITexture* resource, uint32_t stateBefore, uint32_t starteAfter) = 0;
 
-	/** »ñÈ¡Ô­ÉúÃüÁîÁĞ±í¾ä±ú */
+	/** è·å–åŸç”Ÿå‘½ä»¤åˆ—è¡¨å¥æŸ„ */
 	virtual RHIHandler GetNativeHandle() const = 0;
 };

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "Core/CoreMinimal.h"
 #include "RHI/RHIDefinitions.h"

@@ -9,13 +9,13 @@ class D3D12Device;
 class D3D12CommandList : public IRHICommandList
 {
 private:
-	/** D3D12 ÃüÁîÁĞ±í */
+	/** D3D12 å‘½ä»¤åˆ—è¡¨ */
 	ComPtr<ID3D12GraphicsCommandList> m_commandList;
 
-	/** D3D12 ÃüÁî·ÖÅäÆ÷ */
+	/** D3D12 å‘½ä»¤åˆ†é…å™¨ */
 	ComPtr<ID3D12CommandAllocator> m_commandAllocator;
 
-	/** ÃüÁîÁĞ±íÀàĞÍ */
+	/** å‘½ä»¤åˆ—è¡¨ç±»å‹ */
 	D3D12_COMMAND_LIST_TYPE m_type = D3D12_COMMAND_LIST_TYPE_DIRECT;
 
 	bool m_isRecording = false;
@@ -29,7 +29,7 @@ public:
 	void Close();
 
 	// ----------------------------------------------
-	// IRHICommandList ½Ó¿Ú
+	// IRHICommandList æ¥å£
 	virtual void ClearRenderTarget(IRHITexture* renderTarget, const float* clearColor) override;
 	virtual void ClearDepthStencil(IRHITexture* renderTarget, float depth, uint8_t stencil) override;
 	virtual void SetRenderTargets(uint32_t numRenderTargets, IRHITexture* const* renderTargets, IRHITexture* depthStencil) override;
@@ -45,14 +45,14 @@ public:
 
 
 	// ----------------------------------------------
-	// D3D12ÌØÓĞ½Ó¿Ú
+	// D3D12ç‰¹æœ‰æ¥å£
 
-	/** »ñÈ¡Ô­ÉúÃüÁîÁĞ±í¶ÔÏó */
+	/** è·å–åŸç”Ÿå‘½ä»¤åˆ—è¡¨å¯¹è±¡ */
 	inline ID3D12CommandList* GetD3D12CommandList() const { return m_commandList.Get(); }
 
-	/** »ñÈ¡Ô­ÉúÃüÁî·ÖÅäÆ÷¶ÔÏó */
+	/** è·å–åŸç”Ÿå‘½ä»¤åˆ†é…å™¨å¯¹è±¡ */
 	inline ID3D12CommandAllocator* GetD3D12CommandAllocator() const { return m_commandAllocator.Get(); }
 
-	/** ÊÇ·ñÕıÔÚÂ¼ÖÆ */
+	/** æ˜¯å¦æ­£åœ¨å½•åˆ¶ */
 	bool IsRecording() const { return m_isRecording; }
 };

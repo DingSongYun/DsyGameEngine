@@ -19,14 +19,14 @@ bool D3D12CommandQueue::Initialize(D3D12Device* device, ERHICommandQueueType typ
 	m_Device = device;
 	m_QueueType = type;
 
-	// ¥¥Ω®√¸¡Ó∂”¡–√Ë ˆ∑˚
+	// ÂàõÂª∫ÂëΩ‰ª§ÈòüÂàóÊèèËø∞Á¨¶
 	D3D12_COMMAND_QUEUE_DESC desc = {};
 	desc.Type = GetD3D12CommandListType();
 	desc.Priority = D3D12_COMMAND_QUEUE_PRIORITY_NORMAL;
 	desc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
 	desc.NodeMask = 0;
 
-	// ¥¥Ω®√¸¡Ó∂”¡–
+	// ÂàõÂª∫ÂëΩ‰ª§ÈòüÂàó
 	HRESULT hr = m_Device->GetD3D12Device()->CreateCommandQueue(&desc, IID_PPV_ARGS(&m_CommandQueue));
 	if (FAILED(hr))
 	{
@@ -34,7 +34,7 @@ bool D3D12CommandQueue::Initialize(D3D12Device* device, ERHICommandQueueType typ
 		return false;
 	}
 
-	// ¥¥Ω®Õ¨≤ΩFence
+	// ÂàõÂª∫ÂêåÊ≠•Fence
 	m_Fence = std::make_unique<D3D12Fence>();
 	if (!m_Fence->Initialize(m_Device))
 	{

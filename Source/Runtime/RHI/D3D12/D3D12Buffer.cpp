@@ -1,4 +1,4 @@
-﻿#include "D3D12Buffer.h"
+#include "D3D12Buffer.h"
 #include "D3D12Device.h"
 
 D3D12Buffer::~D3D12Buffer()

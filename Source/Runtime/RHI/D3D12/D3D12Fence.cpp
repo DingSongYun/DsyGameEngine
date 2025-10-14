@@ -14,7 +14,7 @@ bool D3D12Fence::Initialize(D3D12Device* device)
 		return false;
 	}
 
-	// 创建Fence对象
+	// 鍒涘缓Fence瀵硅薄
 	HRESULT hr = device->GetD3D12Device()->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&m_Fence));
 
 	if (FAILED(hr))
@@ -23,7 +23,7 @@ bool D3D12Fence::Initialize(D3D12Device* device)
 		return false;
 	}
 
-	// 创建事件句柄
+	// 鍒涘缓浜嬩欢鍙ユ焺
 	m_FenceEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 	if (!m_FenceEvent)
 	{

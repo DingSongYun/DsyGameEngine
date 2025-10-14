@@ -16,22 +16,22 @@ bool D3D12Texture::Initialize(D3D12Device* device, const RHITextureDesc& desc)
 
 	DE_ASSERT(m_IsInitialized);
 
-	// ´´½¨×ÊÔ´ÃèÊö·û
+	// åˆ›å»ºèµ„æºæè¿°ç¬¦
 	m_ResourceDesc = CreateResourceDesc(desc);
 
-	// »ñÈ¡¶ÑÊôĞÔ
+	// è·å–å †å±æ€§
 	D3D12_HEAP_PROPERTIES heapProps = GetHeapProperties();
 
-	// »ñÈ¡³õÊ¼×´Ì¬ºÍ×ÊÔ´±êÖ¾
+	// è·å–åˆå§‹çŠ¶æ€å’Œèµ„æºæ ‡å¿—
 	m_currentState = GetInitialResourceState(desc.usageFlags);
 
-	// ´´½¨ÎÆÀí×ÊÔ´
+	// åˆ›å»ºçº¹ç†èµ„æº
 	HRESULT hr = device->GetD3D12Device()->CreateCommittedResource(
 		&heapProps,
 		D3D12_HEAP_FLAG_NONE,
 		&m_ResourceDesc,
 		m_currentState,
-		nullptr, // ³õÊ¼Çå³ıÖµ
+		nullptr, // åˆå§‹æ¸…é™¤å€¼
 		IID_PPV_ARGS(&m_texture)
 	);
 
@@ -58,7 +58,7 @@ bool D3D12Texture::InitializeFromReource(D3D12Device* device, ID3D12Resource* re
 
 	m_texture = resource;
 	m_ResourceDesc = resource->GetDesc();
-	m_currentState = D3D12_RESOURCE_STATE_PRESENT; // TODO: ¸ù¾İÊµ¼ÊÊ¹ÓÃ³¡¾°ÉèÖÃ³õÊ¼×´Ì¬
+	m_currentState = D3D12_RESOURCE_STATE_PRESENT; // TODO: æ ¹æ®å®é™…ä½¿ç”¨åœºæ™¯è®¾ç½®åˆå§‹çŠ¶æ€
 
 	m_IsInitialized = true;
 	LOG_INFO("D3D12Texture::InitializeFromReource: Texture resource assigned successfully.");
@@ -71,7 +71,7 @@ void D3D12Texture::Shutdown()
 	{
 		m_texture.Reset();
 	}
-	// ÖØÖÃÃèÊö·û¾ä±ú
+	// é‡ç½®æè¿°ç¬¦å¥æŸ„
 	m_RTVHandle = {};
 	m_DSVHandle = {};
 	m_SRVHandle = {};
@@ -83,29 +83,29 @@ void D3D12Texture::Shutdown()
 D3D12_RESOURCE_DESC D3D12Texture::CreateResourceDesc(const RHITextureDesc& desc) const
 {
 	D3D12_RESOURCE_DESC resourceDesc = {};
-	// ÉèÖÃÎ¬¶È
+	// è®¾ç½®ç»´åº¦
 	if( desc.depth > 1)
 	{
-		resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE3D; // 3DÎÆÀí
+		resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE3D; // 3Dçº¹ç†
 	}
 	else if (desc.arraySize > 1)
 	{
-		resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D; // Êı×éÎÆÀí
+		resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D; // æ•°ç»„çº¹ç†
 	}
 	else
 	{
-		resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE1D; // ÆÕÍ¨ÎÆÀí
+		resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE1D; // æ™®é€šçº¹ç†
 	}
 
-	resourceDesc.Alignment = 0; // Ä¬ÈÏ¶ÔÆë
+	resourceDesc.Alignment = 0; // é»˜è®¤å¯¹é½
 	resourceDesc.Width = desc.width;
 	resourceDesc.Height = desc.height;
 	resourceDesc.DepthOrArraySize = static_cast<uint16_t>(desc.depth > 1 ? desc.depth : desc.arraySize);
 	resourceDesc.MipLevels = static_cast<uint16_t>(desc.mipLevels);
 	resourceDesc.Format = D3D12Utils::ConvertFormat(desc.format);
-	resourceDesc.SampleDesc.Count = desc.sampleCount; // Ä¬ÈÏµ¥²ÉÑù
+	resourceDesc.SampleDesc.Count = desc.sampleCount; // é»˜è®¤å•é‡‡æ ·
 	resourceDesc.SampleDesc.Quality = desc.sampleQuality;
-	resourceDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN; // Ä¬ÈÏ²¼¾Ö
+	resourceDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN; // é»˜è®¤å¸ƒå±€
 	resourceDesc.Flags = GetResourceFlags(desc.usageFlags);
 
 	return resourceDesc;
@@ -114,7 +114,7 @@ D3D12_RESOURCE_DESC D3D12Texture::CreateResourceDesc(const RHITextureDesc& desc)
 D3D12_HEAP_PROPERTIES D3D12Texture::GetHeapProperties() const
 {
 	D3D12_HEAP_PROPERTIES heapProps = {};
-	heapProps.Type = D3D12_HEAP_TYPE_DEFAULT; // Ä¬ÈÏ¶ÑÀàĞÍ£¬ÊÊºÏGPU·ÃÎÊ
+	heapProps.Type = D3D12_HEAP_TYPE_DEFAULT; // é»˜è®¤å †ç±»å‹ï¼Œé€‚åˆGPUè®¿é—®
 	heapProps.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
 	heapProps.MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN;
 	heapProps.CreationNodeMask = 1;
@@ -124,7 +124,7 @@ D3D12_HEAP_PROPERTIES D3D12Texture::GetHeapProperties() const
 
 D3D12_RESOURCE_STATES D3D12Texture::GetInitialResourceState(uint32_t usageFlags) const
 {
-	// ¸ù¾İÊ¹ÓÃ±êÖ¾È·¶¨³õÊ¼×ÊÔ´×´Ì¬
+	// æ ¹æ®ä½¿ç”¨æ ‡å¿—ç¡®å®šåˆå§‹èµ„æºçŠ¶æ€
 	if (usageFlags & static_cast<uint32_t>(ERHITextureUsage::RenderTarget))
 	{
 		return D3D12_RESOURCE_STATE_RENDER_TARGET;
@@ -149,7 +149,7 @@ D3D12_RESOURCE_STATES D3D12Texture::GetInitialResourceState(uint32_t usageFlags)
 	{
 		return D3D12_RESOURCE_STATE_COPY_SOURCE;
 	}
-	return D3D12_RESOURCE_STATE_COMMON; // Ä¬ÈÏ×´Ì¬
+	return D3D12_RESOURCE_STATE_COMMON; // é»˜è®¤çŠ¶æ€
 }
 
 D3D12_RESOURCE_FLAGS D3D12Texture::GetResourceFlags(uint32_t usageFlags) const
@@ -168,7 +168,7 @@ D3D12_RESOURCE_FLAGS D3D12Texture::GetResourceFlags(uint32_t usageFlags) const
 		flags |= D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS;
 	}
 
-	// Èç¹ûÎÆÀí²»ÓÃ×÷×ÅÉ«Æ÷×ÊÔ´£¬¿ÉÒÔÉèÖÃDENY_SHADER_RESOURCE±êÖ¾À´ÓÅ»¯ĞÔÄÜ
+	// å¦‚æœçº¹ç†ä¸ç”¨ä½œç€è‰²å™¨èµ„æºï¼Œå¯ä»¥è®¾ç½®DENY_SHADER_RESOURCEæ ‡å¿—æ¥ä¼˜åŒ–æ€§èƒ½
 	if (!(usageFlags & static_cast<uint32_t>(ERHITextureUsage::ShaderResource)))
 	{
 		if (usageFlags & static_cast<uint32_t>(ERHITextureUsage::DepthStencil))
@@ -190,5 +190,5 @@ uint32_t D3D12Texture::GetDepth() const
 	{
 		return m_ResourceDesc.DepthOrArraySize;
 	}
-	return 1; // ¶ÔÓÚ2DºÍ1DÎÆÀí£¬Éî¶ÈÎª1
+	return 1; // å¯¹äº2Då’Œ1Dçº¹ç†ï¼Œæ·±åº¦ä¸º1
 }

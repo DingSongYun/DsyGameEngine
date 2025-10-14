@@ -12,7 +12,7 @@ struct RHITextureDesc;
 struct RHIBufferDesc;
 
 /**
- * SwapChianÃèÊö·û
+ * SwapChianæè¿°ç¬¦
  */
 struct RHISwapChainDesc
 {
@@ -25,41 +25,41 @@ struct RHISwapChainDesc
 };
 
 /**
- * RHIÉè±¸½Ó¿Ú
- * ¸ºÔğ¹ÜÀíµ×²ãÍ¼ĞÎAPIµÄÉè±¸ºÍ¸÷ÖÖ×ÊÔ´
+ * RHIè®¾å¤‡æ¥å£
+ * è´Ÿè´£ç®¡ç†åº•å±‚å›¾å½¢APIçš„è®¾å¤‡å’Œå„ç§èµ„æº
  */
 class IRHIDevice
 {
 public:
 	virtual ~IRHIDevice() = default;
 
-	/** ³õÊ¼»¯Éè±¸ */
+	/** åˆå§‹åŒ–è®¾å¤‡ */
 	virtual bool Initialize() = 0;
 
-	/** ¹Ø±ÕÉè±¸ */
+	/** å…³é—­è®¾å¤‡ */
 	virtual void Shutdown() = 0;
 
-	/** Éè±¸ÊÇ·ñÓĞĞ§ */
+	/** è®¾å¤‡æ˜¯å¦æœ‰æ•ˆ */
 	virtual bool IsValid() const = 0;
 
-	/** »ñÈ¡µ×²ãÍ¼ĞÎAPIµÄÔ­ÉúÉè±¸¾ä±ú */
+	/** è·å–åº•å±‚å›¾å½¢APIçš„åŸç”Ÿè®¾å¤‡å¥æŸ„ */
 	virtual RHIHandler GetNativeDevice() const = 0;
 
-	/** »ñÈ¡Ö¸¶¨ÀàĞÍµÄÃüÁî¶ÓÁĞ */
+	/** è·å–æŒ‡å®šç±»å‹çš„å‘½ä»¤é˜Ÿåˆ— */
 	virtual IRHICommandQueue* GetCommandQueue(ERHICommandQueueType Type) = 0;
 
-	/** ´´½¨½»»»Á´ */
+	/** åˆ›å»ºäº¤æ¢é“¾ */
 	virtual std::unique_ptr<IRHISwapChain> CreateSwapChain(const RHISwapChainDesc& Desc) = 0;
 
-	/** ´´½¨»º³åÇø */
+	/** åˆ›å»ºç¼“å†²åŒº */
 	virtual std::unique_ptr<IRHIBuffer> CreateBuffer(const RHIBufferDesc& Desc) = 0;
 
-	/** ´´½¨ÎÆÀí×ÊÔ´ */
+	/** åˆ›å»ºçº¹ç†èµ„æº */
 	virtual std::unique_ptr<IRHITexture> CreateTexture(const RHITextureDesc& Desc) = 0;
 
-	/** ´´½¨Í¬²½Õ¤À¸ */
+	/** åˆ›å»ºåŒæ­¥æ …æ  */
 	virtual std::unique_ptr<IRHIFence> CreateFence() = 0;
 
-	/** µÈ´ıÉè±¸¿ÕÏĞ */
+	/** ç­‰å¾…è®¾å¤‡ç©ºé—² */
 	virtual void WaitForIdle() = 0;
 };

@@ -9,40 +9,40 @@ class D3D12Device;
 
 
 /**
- * D3D12ÎÆÀíÊµÏÖ
+ * D3D12çº¹ç†å®ç°
  */
 class D3D12Texture : public IRHITexture
 {
 private:
-	// D3D12×ÊÔ´¶ÔÏó
+	// D3D12èµ„æºå¯¹è±¡
 	ComPtr<ID3D12Resource>	m_texture;
 
-	// µ±Ç°×ÊÔ´×´Ì¬
+	// å½“å‰èµ„æºçŠ¶æ€
 	D3D12_RESOURCE_STATES	m_currentState = D3D12_RESOURCE_STATE_COMMON;
 
-	// D3D12×ÊÔ´ÃèÊö·û
+	// D3D12èµ„æºæè¿°ç¬¦
 	D3D12_RESOURCE_DESC		m_ResourceDesc = {};
 
 
 	// ----------------------------------------------
-	// ÎÆÀí×ÊÔ´ÊÓÍ¼¾ä±ú
+	// çº¹ç†èµ„æºè§†å›¾å¥æŸ„
 
-	// RTV: Render Target View äÖÈ¾Ä¿±êÊÓÍ¼¾ä±ú
-	// ÎÆÀí×÷ÎªäÖÈ¾Ä¿±êÊ±Ê¹ÓÃ
+	// RTV: Render Target View æ¸²æŸ“ç›®æ ‡è§†å›¾å¥æŸ„
+	// çº¹ç†ä½œä¸ºæ¸²æŸ“ç›®æ ‡æ—¶ä½¿ç”¨
 	D3D12_CPU_DESCRIPTOR_HANDLE m_RTVHandle = {};
 
-	// DSV: Depth Stencil View Éî¶ÈÄ£°åÊÓÍ¼¾ä±ú
-	// ÎÆÀí×÷ÎªÉî¶ÈÄ£°åÊ±Ê¹ÓÃ
+	// DSV: Depth Stencil View æ·±åº¦æ¨¡æ¿è§†å›¾å¥æŸ„
+	// çº¹ç†ä½œä¸ºæ·±åº¦æ¨¡æ¿æ—¶ä½¿ç”¨
 	D3D12_CPU_DESCRIPTOR_HANDLE m_DSVHandle = {};
 
-	// SRV: Shader Resource View ×ÅÉ«Æ÷×ÊÔ´ÊÓÍ¼¾ä±ú
-	// ÎÆÀí×÷ÎªÖ»¶Á×ÊÔ´¹©×ÅÉ«Æ÷²ÉÓÃ
+	// SRV: Shader Resource View ç€è‰²å™¨èµ„æºè§†å›¾å¥æŸ„
+	// çº¹ç†ä½œä¸ºåªè¯»èµ„æºä¾›ç€è‰²å™¨é‡‡ç”¨
 	D3D12_CPU_DESCRIPTOR_HANDLE m_SRVHandle = {};
 
-	// UAV: Unordered Access View ÎŞĞò·ÃÎÊÊÓÍ¼¾ä±ú
-	// ÔÊĞí×ÅÉ«Æ÷¶ÔÎÆÀí½øĞĞËæ»ú¶ÁĞ´·ÃÎÊ
-	// Ò»°ãÓÃÓÚ¼ÆËã×ÅÉ«Æ÷µÄÊä³öÄ¿±ê
-	// Ê¹ÓÃ³¡¾°: ¼ÆËã×ÅÉ«Æ÷Êä³ö¡¢Ìå»ıäÖÈ¾¡¢Á£×ÓÏµÍ³µÈ
+	// UAV: Unordered Access View æ— åºè®¿é—®è§†å›¾å¥æŸ„
+	// å…è®¸ç€è‰²å™¨å¯¹çº¹ç†è¿›è¡Œéšæœºè¯»å†™è®¿é—®
+	// ä¸€èˆ¬ç”¨äºè®¡ç®—ç€è‰²å™¨çš„è¾“å‡ºç›®æ ‡
+	// ä½¿ç”¨åœºæ™¯: è®¡ç®—ç€è‰²å™¨è¾“å‡ºã€ä½“ç§¯æ¸²æŸ“ã€ç²’å­ç³»ç»Ÿç­‰
 	D3D12_CPU_DESCRIPTOR_HANDLE m_UAVHandle = {};
 
 	bool m_IsInitialized = false;
@@ -56,7 +56,7 @@ public:
 	virtual void Shutdown();
 
 	// ------------------------------------------------------
-	// IRHITexture½Ó¿ÚÊµÏÖ
+	// IRHITextureæ¥å£å®ç°
 	virtual uint64_t GetWidth() const override { return m_ResourceDesc.Width; }
 	virtual uint64_t GetHeight() const override { return m_ResourceDesc.Height; }
 	virtual uint32_t GetDepth() const override;
@@ -65,13 +65,13 @@ public:
 	virtual RHIHandler GetNativeHandle() const override { return m_texture.Get(); }
 
 	// ------------------------------------------------------
-	// D3D12TextureÌØÓĞ½Ó¿Ú
+	// D3D12Textureç‰¹æœ‰æ¥å£
 
 	inline ID3D12Resource* GetD3D12Resource() const { return m_texture.Get(); }
 	inline D3D12_RESOURCE_STATES GetCurrentState() const { return m_currentState; }
 	inline void SetCurrentState(D3D12_RESOURCE_STATES state) { m_currentState = state; }
 
-	// ÃèÊö·û¾ä±ú²Ù×÷
+	// æè¿°ç¬¦å¥æŸ„æ“ä½œ
 	inline D3D12_CPU_DESCRIPTOR_HANDLE GetRTVHandle() const { return m_RTVHandle; }
 	inline D3D12_CPU_DESCRIPTOR_HANDLE GetDSVHandle() const { return m_DSVHandle; }
 	inline D3D12_CPU_DESCRIPTOR_HANDLE GetSRVHandle() const { return m_SRVHandle; }

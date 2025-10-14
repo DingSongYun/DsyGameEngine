@@ -11,67 +11,67 @@ class D3D12Fence;
 
 
 /**
- * D3D12Éè±¸·â×°
- * ¹ÜÀíD3D12Éè±¸ºÍ¸÷ÖÖ×ÊÔ´
+ * D3D12è®¾å¤‡å°è£…
+ * ç®¡ç†D3D12è®¾å¤‡å’Œå„ç§èµ„æº
  */
 class D3D12Device : public IRHIDevice
 {
 private:
 
 	// ----------------------------------------
-	// D3D12ºËĞÄ¶ÔÏó
+	// D3D12æ ¸å¿ƒå¯¹è±¡
 	// DXGI: DirectX Graphics Infrastructure
-	//	ºËĞÄ×é¼ş£º
-	//		IDXGIFactory: DXGI¹¤³§¶ÔÏó£¬¸ºÔğ´´½¨ºÍ¹ÜÀíDXGI¶ÔÏó
-	//		IDXGIAdapter: DXGIÊÊÅäÆ÷¶ÔÏó£¬´ú±íÏµÍ³ÖĞµÄÎïÀíÏÔ¿¨
-	//		IDXGISwapChain: DXGI½»»»Á´¶ÔÏó£¬¸ºÔğ¹ÜÀí´°¿ÚÓëGPUÖ®¼ä»º³åÇøµÄ½»»»
-	//		IDXGIOutput: DXGIÊä³ö¶ÔÏó£¬´ú±í´°¿Ú»òÆÁÄ»Êä³ö
+	//	æ ¸å¿ƒç»„ä»¶ï¼š
+	//		IDXGIFactory: DXGIå·¥å‚å¯¹è±¡ï¼Œè´Ÿè´£åˆ›å»ºå’Œç®¡ç†DXGIå¯¹è±¡
+	//		IDXGIAdapter: DXGIé€‚é…å™¨å¯¹è±¡ï¼Œä»£è¡¨ç³»ç»Ÿä¸­çš„ç‰©ç†æ˜¾å¡
+	//		IDXGISwapChain: DXGIäº¤æ¢é“¾å¯¹è±¡ï¼Œè´Ÿè´£ç®¡ç†çª—å£ä¸GPUä¹‹é—´ç¼“å†²åŒºçš„äº¤æ¢
+	//		IDXGIOutput: DXGIè¾“å‡ºå¯¹è±¡ï¼Œä»£è¡¨çª—å£æˆ–å±å¹•è¾“å‡º
 
-	/** D3D12Éè±¸ */
+	/** D3D12è®¾å¤‡ */
 	ComPtr<ID3D12Device> m_Device;
 
 	/**
-	 * DXGIFatory¶ÔÏó
-	 * DXGIÏµÍ³µÄÈë¿Úµã£¬¸ºÔğ´´½¨ºÍ¹ÜÀí¸÷ÖÖDXGI¶ÔÏó
+	 * DXGIFatoryå¯¹è±¡
+	 * DXGIç³»ç»Ÿçš„å…¥å£ç‚¹ï¼Œè´Ÿè´£åˆ›å»ºå’Œç®¡ç†å„ç§DXGIå¯¹è±¡
 	 */
 	ComPtr<IDXGIFactory6> m_Factory;
 
 	/**
-	 *  DXGIAdapter ÏÔÊ¾ÊÊÅäÆ÷¶ÔÏó
-	 * ´ú±íÏµÍ³ÖĞµÄÎïÀíÏÔ¿¨£¬¸ºÔğ´¦ÀíÓëÏÔ¿¨Ïà¹ØµÄ²Ù×÷
+	 *  DXGIAdapter æ˜¾ç¤ºé€‚é…å™¨å¯¹è±¡
+	 * ä»£è¡¨ç³»ç»Ÿä¸­çš„ç‰©ç†æ˜¾å¡ï¼Œè´Ÿè´£å¤„ç†ä¸æ˜¾å¡ç›¸å…³çš„æ“ä½œ
 	 */
 	ComPtr<IDXGIAdapter4> m_Adapter;
 
 	// --------------------------------------------
-	// ÃüÁî¶ÓÁĞ
+	// å‘½ä»¤é˜Ÿåˆ—
 
 	/** 
-	 * äÖÈ¾¶ÓÁĞ 
-	 * 	-> Vertex&Pixel×ÅÉ«Æ÷µÈÍ¼ĞÎ¹ÜÏß
-	 * 	-> ¹âÕ¤»¯
-	 * 	-> Éî¶È²âÊÔ
-	 * 	-> ËùÓĞ»æÖÆÈÎÎñ
+	 * æ¸²æŸ“é˜Ÿåˆ— 
+	 * 	-> Vertex&Pixelç€è‰²å™¨ç­‰å›¾å½¢ç®¡çº¿
+	 * 	-> å…‰æ …åŒ–
+	 * 	-> æ·±åº¦æµ‹è¯•
+	 * 	-> æ‰€æœ‰ç»˜åˆ¶ä»»åŠ¡
 	 */
 	std::unique_ptr<D3D12CommandQueue> m_GraphicsQueue;
 
 	/** 
-	 * ¼ÆËã¶ÓÁĞ, ComputeShader¼ÆËãÈÎÎñ
-	 * 	-> ºó´¦ÀíĞ§¹û(e.g. Ä£ºı¡¢½µÔë)
-	 * 	-> ÎïÀíÄ£Äâ
-	 * 	-> Á£×ÓÏµÍ³¸üĞÂ
+	 * è®¡ç®—é˜Ÿåˆ—, ComputeShaderè®¡ç®—ä»»åŠ¡
+	 * 	-> åå¤„ç†æ•ˆæœ(e.g. æ¨¡ç³Šã€é™å™ª)
+	 * 	-> ç‰©ç†æ¨¡æ‹Ÿ
+	 * 	-> ç²’å­ç³»ç»Ÿæ›´æ–°
 	 */
 	std::unique_ptr<D3D12CommandQueue> m_ComputeQueue;
 
 	/** 
-	 * ¸´ÖÆ¶ÓÁĞ 
-	 * 	-> ÎÆÀíÉÏ´«GPU
-	 *  -> ×ÊÔ´¸´ÖÆºÍÒÆ¶¯
-	 *  -> »º³åÇøÊı¾İ´«Êä
-	 *  -> ÄÚ´æÓ³Éä
+	 * å¤åˆ¶é˜Ÿåˆ— 
+	 * 	-> çº¹ç†ä¸Šä¼ GPU
+	 *  -> èµ„æºå¤åˆ¶å’Œç§»åŠ¨
+	 *  -> ç¼“å†²åŒºæ•°æ®ä¼ è¾“
+	 *  -> å†…å­˜æ˜ å°„
 	 */
 	std::unique_ptr<D3D12CommandQueue> m_CopyQueue;
 
-	/** Éè±¸×´Ì¬ */
+	/** è®¾å¤‡çŠ¶æ€ */
 	bool m_Initialized = false;
 
 public:
@@ -79,7 +79,7 @@ public:
 	virtual ~D3D12Device();
 
 	// --------------------------------------------
-	// IRHIDevice½Ó¿ÚÊµÏÖ
+	// IRHIDeviceæ¥å£å®ç°
 	virtual bool Initialize() override;
 	virtual void Shutdown() override;
 	virtual bool IsValid() const override;
@@ -93,14 +93,14 @@ public:
 	virtual void WaitForIdle();
 
 	// --------------------------------------------
-	// D3D12½Ó¿Ú
+	// D3D12æ¥å£
 	ID3D12Device* GetD3D12Device() const { return m_Device.Get(); }
 	IDXGIFactory6* GetDXGIFactory() const { return m_Factory.Get(); }
 	IDXGIAdapter4* GetDXGIAdapter() const { return m_Adapter.Get(); }
 
 private:
 	// --------------------------------------------
-	// ÄÚ²¿³õÊ¼»¯·½·¨
+	// å†…éƒ¨åˆå§‹åŒ–æ–¹æ³•
 
 	bool CreateDXGIFactory();
 	bool CreateD3D12Device();

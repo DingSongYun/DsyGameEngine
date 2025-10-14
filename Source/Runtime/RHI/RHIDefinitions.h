@@ -5,20 +5,20 @@
 using RHIHandler = void*;
 using RHIResult = int32_t;
 
-// ³£ÓÃ³£Á¿
+// å¸¸ç”¨å¸¸é‡
 constexpr uint32_t RHI_MAX_RENDER_TARGETS = 8;
 constexpr uint32_t RHI_MAX_VIEWPORTS = 16;
 
-// ¼û: DXGI_FORMAT
+// è§: DXGI_FORMAT
 enum class ERHIFormat : uint8_t
 {
 	UNKNOWN,
 	R8G8B8A8_UNORM,
 	D24_UNORM_S8_UINT,
-	// ... ÆäËû¸ñÊ½
+	// ... å…¶ä»–æ ¼å¼
 };
 
-// ÃüÁî¶ÓÁĞÀàĞÍ
+// å‘½ä»¤é˜Ÿåˆ—ç±»å‹
 enum class ERHICommandQueueType : uint8_t
 {
 	Graphics,
@@ -29,10 +29,10 @@ enum class ERHICommandQueueType : uint8_t
 enum class ERHITextureUsage : uint32_t
 {
 	None				= 0,
-	RenderTarget		= 1 << 0,		// ÎÆÀíÓÃ×÷äÖÈ¾Ä¿±ê
-	DepthStencil		= 1 << 1,		// ÎÆÀíÓÃ×÷Éî¶ÈÄ£°å
-	ShaderResource		= 1 << 2,		// ÎÆÀíÓÃ×÷×ÅÉ«Æ÷×ÊÔ´
-	UnorderedAccess		= 1 << 3,		// ÎÆÀíÓÃ×÷ÎŞĞò·ÃÎÊ×ÊÔ´
-	CopySource			= 1 << 4,		// ÎÆÀíÓÃ×÷¸´ÖÆÔ´
-	CopyDestination		= 1 << 5,		// ÎÆÀíÓÃ×÷¸´ÖÆÄ¿±ê
+	RenderTarget		= 1 << 0,		// çº¹ç†ç”¨ä½œæ¸²æŸ“ç›®æ ‡
+	DepthStencil		= 1 << 1,		// çº¹ç†ç”¨ä½œæ·±åº¦æ¨¡æ¿
+	ShaderResource		= 1 << 2,		// çº¹ç†ç”¨ä½œç€è‰²å™¨èµ„æº
+	UnorderedAccess		= 1 << 3,		// çº¹ç†ç”¨ä½œæ— åºè®¿é—®èµ„æº
+	CopySource			= 1 << 4,		// çº¹ç†ç”¨ä½œå¤åˆ¶æº
+	CopyDestination		= 1 << 5,		// çº¹ç†ç”¨ä½œå¤åˆ¶ç›®æ ‡
 };

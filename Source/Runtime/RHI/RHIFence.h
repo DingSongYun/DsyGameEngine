@@ -3,7 +3,7 @@
 #include "RHIDefinitions.h"
 
 /**
- * RHI Fence½Ó¿Ú
+ * RHI Fence
  */
 class IRHIFence
 {

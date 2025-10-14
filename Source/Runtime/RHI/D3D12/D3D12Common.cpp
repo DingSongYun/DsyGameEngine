@@ -2,7 +2,7 @@
 
 using Microsoft::WRL::ComPtr;
 
-// ¸üÍêÉÆµÄ×ö·¨ - ´Ó¸ßµ½µÍ³¢ÊÔ
+// æ›´å®Œå–„çš„åšæ³• - ä»é«˜åˆ°ä½å°è¯•
 D3D_FEATURE_LEVEL SUPPORT_FEATURE_LEVELS[] = {
 	D3D_FEATURE_LEVEL_12_1,
 	D3D_FEATURE_LEVEL_12_0,
@@ -19,7 +19,7 @@ namespace D3D12Utils
 		if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debugController))))
 		{
 			debugController->EnableDebugLayer();
-			// ¿ÉÑ¡£ºÆôÓÃGPUÑéÖ¤£¨ĞÔÄÜÓ°Ïì½Ï´ó£©
+			// å¯é€‰ï¼šå¯ç”¨GPUéªŒè¯ï¼ˆæ€§èƒ½å½±å“è¾ƒå¤§ï¼‰
 			// ComPtr<ID3D12Debug1> debugController1;
 			// if (SUCCEEDED(debugController->QueryInterface(IID_PPV_ARGS(&debugController1))))
 			// {
@@ -38,11 +38,11 @@ namespace D3D12Utils
 			adapter->GetDesc1(&desc);
 			if (desc.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)
 			{
-				// Ìø¹ıÈí¼şÊÊÅäÆ÷
+				// è·³è¿‡è½¯ä»¶é€‚é…å™¨
 				continue;
 			}
 
-			// ¼ì²éÊÇ·ñÖ§³ÖD3D12
+			// æ£€æŸ¥æ˜¯å¦æ”¯æŒD3D12
 #if false
 			if (SUCCEEDED(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, _uuidof(ID3D12Device), nullptr)))
 			{
@@ -52,7 +52,7 @@ namespace D3D12Utils
 			for (auto level : SUPPORT_FEATURE_LEVELS)
 			{
 				if (SUCCEEDED(D3D12CreateDevice(adapter.Get(), level, _uuidof(ID3D12Device), nullptr))) {
-					// Ê¹ÓÃÖ§³ÖµÄ×î¸ß¼¶±ğ
+					// ä½¿ç”¨æ”¯æŒçš„æœ€é«˜çº§åˆ«
 					return adapter;
 				}
 			}

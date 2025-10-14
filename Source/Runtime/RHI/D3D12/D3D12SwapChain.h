@@ -9,18 +9,18 @@ class IRHITexture;
 struct RHISwapChainDesc;
 
 /**
- * D3D12½»»»Á´
+ * D3D12äº¤æ¢é“¾
  */
 class D3D12SwapChain : public IRHISwapChain
 {
 private:
-	/** ½»»»Á´ */
+	/** äº¤æ¢é“¾ */
 	ComPtr<IDXGISwapChain3> m_SwapChain;
 
 	/** buffers */
 	std::vector<ComPtr<ID3D12Resource>> m_BackBuffers;
 
-	// ¹ØÁªµÄD3D12Éè±¸
+	// å…³è”çš„D3D12è®¾å¤‡
 	D3D12Device* m_Device = nullptr;
 
 	uint32_t m_Width = 0;
@@ -36,7 +36,7 @@ public:
 	void Shutdown();
 
 	// --------------------------------------------
-	// IRHISwapChain ½Ó¿Ú
+	// IRHISwapChain æ¥å£
 	virtual uint32_t GetCurrentBackBufferIndex() const override;
 	virtual inline uint32_t GetBufferCount() const override { return m_BufferCount; }
 	virtual IRHITexture* GetBackBuffer(uint32_t Index) const override;
@@ -49,7 +49,7 @@ public:
 
 private:
 	// --------------------------------------------
-	// D3D12½Ó¿Ú
+	// D3D12æ¥å£
 	bool CreateBackBuffers();
 	void ReleaseBackBuffers();
 };

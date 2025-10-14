@@ -9,7 +9,7 @@ class D3D12CommandList;
 class D3D12Fence;
 
 /**
- * D3D12ÃüÁî¶ÓÁĞ·â×°
+ * D3D12å‘½ä»¤é˜Ÿåˆ—å°è£…
  */
 class D3D12CommandQueue : public IRHICommandQueue
 {
@@ -18,7 +18,7 @@ private:
 	ERHICommandQueueType m_QueueType;
 	D3D12Device* m_Device = nullptr;
 
-	// Í¬²½¶ÔÏó
+	// åŒæ­¥å¯¹è±¡
 	std::unique_ptr<D3D12Fence> m_Fence;
 	uint64_t m_FenceValue = 0;
 
@@ -26,14 +26,14 @@ public:
 	D3D12CommandQueue() = default;
 	virtual ~D3D12CommandQueue();
 
-	/** ³õÊ¼»¯ */
+	/** åˆå§‹åŒ– */
 	bool Initialize(D3D12Device* device, ERHICommandQueueType type);
 
-	/** ¹Ø±Õ */
+	/** å…³é—­ */
 	void Shutdown();
 
 	// ----------------------------------------------
-	// IRHICommandQueue ½Ó¿Ú
+	// IRHICommandQueue æ¥å£
 	virtual RHIHandler GetNativeHandle() const override { return m_CommandQueue.Get(); }
 	virtual ERHICommandQueueType GetType() const override { return m_QueueType; }
 	virtual std::unique_ptr<IRHICommandList> CreateCommandList() override;
@@ -42,7 +42,7 @@ public:
 	virtual void Wait(IRHIFence* fence, uint64_t value) override;
 
 	// ----------------------------------------------
-	// D3D12ÌØÓĞ½Ó¿Ú
+	// D3D12ç‰¹æœ‰æ¥å£
 	void WaitForIdle();
 	ID3D12CommandQueue* GetD3D12CommandQueue() const { return m_CommandQueue.Get(); }
 

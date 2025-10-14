@@ -36,7 +36,7 @@ bool D3D12PipelineState::InitializeGraphics(ID3D12Device* device, const D3D12Gra
 		.BlendState = desc.BlendState,
 		.SampleMask = desc.SampleMask,
 		.RasterizerState = desc.RasterizerState,
-		.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(desc.DepthStencilState), // ת��V0�汾
+		.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(desc.DepthStencilState), // ×ªµ½V0°æ±¾
 		.InputLayout = {
 			.pInputElementDescs = desc.InputLayout.empty() ? nullptr : desc.InputLayout.data(),
 			.NumElements = static_cast<UINT>(desc.InputLayout.size()),

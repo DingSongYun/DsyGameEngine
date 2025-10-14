@@ -7,38 +7,38 @@
 class IRHITexture;
 
 /**
- * RHI½»»»Á´½Ó¿Ú
- * ¹ÜÀíºóÌ¨»º³åÇø
+ * RHIäº¤æ¢é“¾æ¥å£
+ * ç®¡ç†åå°ç¼“å†²åŒº
  */
 class IRHISwapChain
 {
 public:
 	virtual ~IRHISwapChain() = default;
 
-	/** »ñÈ¡»º³åÇøÊıÁ¿ */
+	/** è·å–ç¼“å†²åŒºæ•°é‡ */
 	virtual uint32_t GetBufferCount() const = 0;
 
-	/** »ñÈ¡µ±Ç°ºóÌ¨»º³åÇøË÷Òı */
+	/** è·å–å½“å‰åå°ç¼“å†²åŒºç´¢å¼• */
 	virtual uint32_t GetCurrentBackBufferIndex() const = 0;
 
-	/** »ñÈ¡Ö¸¶¨Ë÷ÒıµÄºóÌ¨»º³åÇø */
+	/** è·å–æŒ‡å®šç´¢å¼•çš„åå°ç¼“å†²åŒº */
 	virtual IRHITexture* GetBackBuffer(uint32_t Index) const = 0;
 
-	/** ÏÔÊ¾µ±Ç°»º³åÇø */
+	/** æ˜¾ç¤ºå½“å‰ç¼“å†²åŒº */
 	virtual void Present(uint32_t SyncInterval=1) = 0;
 
-	/** µ÷Õû»º³åÇø´óĞ¡ */
+	/** è°ƒæ•´ç¼“å†²åŒºå¤§å° */
 	virtual bool Resize(uint32_t NewWidth, uint32_t NewHeight) = 0;
 
-	/** »ñÈ¡½»»»Á´¿í¶È */
+	/** è·å–äº¤æ¢é“¾å®½åº¦ */
 	virtual uint32_t GetWidth() const = 0;
 
-	/** »ñÈ¡½»»»Á´¸ß¶È */
+	/** è·å–äº¤æ¢é“¾é«˜åº¦ */
 	virtual uint32_t GetHeight() const = 0;
 
-	/** »ñÈ¡½»»»Á´¸ñÊ½ */
+	/** è·å–äº¤æ¢é“¾æ ¼å¼ */
 	virtual ERHIFormat GetFormat() const = 0;
 
-	/** »ñÈ¡Ô­Éú½»»»Á´¾ä±ú */
+	/** è·å–åŸç”Ÿäº¤æ¢é“¾å¥æŸ„ */
 	virtual RHIHandler GetNativeHandle() const = 0;
 };

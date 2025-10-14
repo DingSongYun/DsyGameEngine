@@ -8,39 +8,39 @@
 class D3D12Device;
 
 /**
- * D3D12BufferÊµÏÖ
+ * D3D12Bufferå®ç°
  */
 class D3D12Buffer : public IRHIBuffer
 {
 private:
-	// D3D12×ÊÔ´
+	// D3D12èµ„æº
 	ComPtr<ID3D12Resource> m_Resource;
 
-	// ×ÊÔ´ÃèÊö·û
+	// èµ„æºæè¿°ç¬¦
 	D3D12_RESOURCE_DESC m_ResourceDesc;
 
-	// µ±Ç°×ÊÔ´×´Ì¬
+	// å½“å‰èµ„æºçŠ¶æ€
 	D3D12_RESOURCE_STATES m_CurrentState = D3D12_RESOURCE_STATE_COMMON;
 
-	// ×ÊÔ´ÃèÊö
+	// èµ„æºæè¿°
 	RHIBufferDesc m_Desc = {};
 
-	// ÊÇ·ñÒÑ³õÊ¼»¯
+	// æ˜¯å¦å·²åˆå§‹åŒ–
 	bool m_IsInitialized = false;
 
 	// *********************************************
-	// Ó³ÉäÏà¹Ø
+	// æ˜ å°„ç›¸å…³
 	void* m_MappedData = nullptr;
 	bool m_IsMapped = false;
 
 	//**********************************************
-	// ÊÓÍ¼Ïà¹Ø
+	// è§†å›¾ç›¸å…³
 
-	// ¶¥µã»º³åÇøÊÓÍ¼
+	// é¡¶ç‚¹ç¼“å†²åŒºè§†å›¾
 	D3D12_VERTEX_BUFFER_VIEW m_VertexBufferView = {};
-	// Ë÷Òı»º³åÇøÊÓÍ¼
+	// ç´¢å¼•ç¼“å†²åŒºè§†å›¾
 	D3D12_INDEX_BUFFER_VIEW m_IndexBufferView = {};
-	// ³£Á¿»º³åÇøÊÓÍ¼ÃèÊö·û
+	// å¸¸é‡ç¼“å†²åŒºè§†å›¾æè¿°ç¬¦
 	D3D12_CONSTANT_BUFFER_VIEW_DESC m_ConstantBufferViewDesc = {};
 
 public:
@@ -51,7 +51,7 @@ public:
 	virtual void Shutdown();
 
 	// ******************************************************
-	// IRHIBuffer ½Ó¿ÚÊµÏÖ
+	// IRHIBuffer æ¥å£å®ç°
 	virtual uint32_t GetSize() const override { return m_Desc.Size; }
 	virtual uint32_t GetStride() const override { return m_Desc.Stride; }
 	virtual ERHIBufferUsage GetUsage() const override { return m_Desc.Usage; }
@@ -62,7 +62,7 @@ public:
 	virtual RHIHandler GetNativeHandle() const override { return m_Resource.Get(); }
 
 	// ******************************************************
-	// D3D12BufferÌØÓĞ½Ó¿Ú
+	// D3D12Bufferç‰¹æœ‰æ¥å£
 	ID3D12Resource* GetD3D12Resource() const { return m_Resource.Get(); }
 	D3D12_RESOURCE_STATES GetCurrentState() const { return m_CurrentState; }
 	void SetCurrentState(D3D12_RESOURCE_STATES state) { m_CurrentState = state; }
