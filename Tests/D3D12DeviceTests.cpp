@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "RHI/D3D12/D3D12Device.h"
+#include "RHI/D3D12/D3D12CommandQueue.h"
 #include "RHI/RHIDevice.h"
 #include "RHI/RHITexture.h"
 #include "RHI/RHIBuffer.h"
@@ -28,6 +29,7 @@ TEST(D3D12Device, CreateRenderTargetTexture) {
   desc.usageFlags = static_cast<uint32_t>(ERHITextureUsage::RenderTarget) | static_cast<uint32_t>(ERHITextureUsage::ShaderResource);
 
   auto tex = device.CreateTexture(desc);
+  LOG_INFO("Created texture: {}", tex ? "success" : "failed");
   ASSERT_NE(tex, nullptr);
   EXPECT_EQ(tex->GetWidth(), 64);
   EXPECT_EQ(tex->GetHeight(), 64);

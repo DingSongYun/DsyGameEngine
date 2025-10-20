@@ -88,18 +88,18 @@ D3D12_RESOURCE_DESC D3D12Texture::CreateResourceDesc(const RHITextureDesc& desc)
 	{
 		resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE3D; // 3D纹理
 	}
-	else if (desc.arraySize > 1)
+	else if (desc.height > 1)
 	{
-		resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D; // 数组纹理
+		resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D; // 2D纹理
 	}
 	else
 	{
-		resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE1D; // 普通纹理
+		resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE1D; // 1D纹理
 	}
 
 	resourceDesc.Alignment = 0; // 默认对齐
 	resourceDesc.Width = desc.width;
-	resourceDesc.Height = desc.height;
+	resourceDesc.Height = resourceDesc.Dimension == D3D12_RESOURCE_DIMENSION_TEXTURE1D ? 1 : desc.height ;
 	resourceDesc.DepthOrArraySize = static_cast<uint16_t>(desc.depth > 1 ? desc.depth : desc.arraySize);
 	resourceDesc.MipLevels = static_cast<uint16_t>(desc.mipLevels);
 	resourceDesc.Format = D3D12Utils::ConvertFormat(desc.format);

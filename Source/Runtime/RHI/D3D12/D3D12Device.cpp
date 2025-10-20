@@ -133,6 +133,7 @@ std::unique_ptr<IRHITexture> D3D12Device::CreateTexture(const RHITextureDesc& De
 		LOG_ERROR("D3D12Device::CreateTexture: Failed to create texture.");
 		return nullptr;
 	}
+
 	return texture;
 }
 

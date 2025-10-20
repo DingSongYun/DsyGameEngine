@@ -81,3 +81,7 @@ target_compile_definitions(DsyEngineTests PRIVATE DE_REPO_ROOT="${REPO_ROOT_SLAS
 # Discover and register tests
 set_property(TARGET DsyEngineTests PROPERTY FOLDER "Tests")
 gtest_discover_tests(DsyEngineTests)
+
+if(MSVC)
+	add_compile_options("/utf-8")
+endif()

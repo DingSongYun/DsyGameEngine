@@ -240,32 +240,35 @@ D3D12_HEAP_PROPERTIES D3D12Buffer::GetHeapProperties(const RHIBufferDesc& desc)
 
 D3D12_RESOURCE_STATES D3D12Buffer::GetInitialResourceState(const RHIBufferDesc& desc)
 {
-	uint32_t usageFlag = static_cast<uint32_t>(desc.Usage);
-	if (usageFlag & static_cast<uint32_t>(ERHIBufferUsage::VertexBuffer))
-	{
-		return D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER;
-	}
-	else if (usageFlag & static_cast<uint32_t>(ERHIBufferUsage::IndexBuffer))
-	{
-		return D3D12_RESOURCE_STATE_INDEX_BUFFER;
-	}
-	else if (usageFlag & static_cast<uint32_t>(ERHIBufferUsage::ConstantBuffer))
-	{
-		return D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER;
-	}
-	else if (usageFlag & static_cast<uint32_t>(ERHIBufferUsage::UnorderedAccess))
-	{
-		return D3D12_RESOURCE_STATE_UNORDERED_ACCESS;
-	}
-	else if (usageFlag & static_cast<uint32_t>(ERHIBufferUsage::CopyDestination))
-	{
-		return D3D12_RESOURCE_STATE_COPY_DEST;
-	}
-	else if (usageFlag & static_cast<uint32_t>(ERHIBufferUsage::CopySource))
-	{
-		return D3D12_RESOURCE_STATE_COPY_SOURCE;
-	}
-
+	// 根据 D3D12 调试层提示，缓冲区在创建时实际处于 COMMON 状态，
+	// 如果传入非 COMMON 初始状态会触发 WARNING 并被忽略。
+	// 为避免触发断点，统一使用 COMMON 作为创建初始状态，
+	// 在绑定/使用时通过命令列表进行状态过渡。
+	//uint32_t usageFlag = static_cast<uint32_t>(desc.Usage);
+	//if (usageFlag & static_cast<uint32_t>(ERHIBufferUsage::VertexBuffer))
+	//{
+	//	return D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER;
+	//}
+	//else if (usageFlag & static_cast<uint32_t>(ERHIBufferUsage::IndexBuffer))
+	//{
+	//	return D3D12_RESOURCE_STATE_INDEX_BUFFER;
+	//}
+	//else if (usageFlag & static_cast<uint32_t>(ERHIBufferUsage::ConstantBuffer))
+	//{
+	//	return D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER;
+	//}
+	//else if (usageFlag & static_cast<uint32_t>(ERHIBufferUsage::UnorderedAccess))
+	//{
+	//	return D3D12_RESOURCE_STATE_UNORDERED_ACCESS;
+	//}
+	//else if (usageFlag & static_cast<uint32_t>(ERHIBufferUsage::CopyDestination))
+	//{
+	//	return D3D12_RESOURCE_STATE_COPY_DEST;
+	//}
+	//else if (usageFlag & static_cast<uint32_t>(ERHIBufferUsage::CopySource))
+	//{
+	//	return D3D12_RESOURCE_STATE_COPY_SOURCE;
+	//}
 	return D3D12_RESOURCE_STATE_COMMON;
 }
 

@@ -99,3 +99,7 @@ if(WIN32)
 		d3dcompiler.lib
 	)
 endif()
+
+if(MSVC)
+	add_compile_options("/utf-8")
+endif()
