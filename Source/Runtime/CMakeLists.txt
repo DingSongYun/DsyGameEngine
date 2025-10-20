@@ -26,6 +26,11 @@ set(RHI_SOURCES
 	RHI/RHIBuffer.h
 )
 
+set(RENDER_SOURCES
+	Render/ShaderCompileUtils.h
+	Render/ShaderCompileUtils.cpp
+)
+
 set(RHI_D3D12_SOURCES
 	RHI/D3D12/D3D12Common.h
 	RHI/D3D12/D3D12Common.cpp
@@ -59,6 +64,7 @@ add_executable(DsyGameEngine
 	${RHI_SOURCES}
 	${RHI_D3D12_SOURCES}
 	${PLATFORM_WINDOWS_SOURCES}
+	${RENDER_SOURCES}
 )
 
 # Visual Studio文件夹组织
@@ -68,6 +74,7 @@ source_group("Core\\Logging" FILES ${CORE_LOGGING_SOURCES})
 source_group("RHI" FILES ${RHI_SOURCES})
 source_group("RHI\\D3D12" FILES ${RHI_D3D12_SOURCES})
 source_group("Platform\\Windows" FILES ${PLATFORM_WINDOWS_SOURCES})
+source_group("Render" FILES ${RENDER_SOURCES})
 
 # 设置包含目录
 target_include_directories(DsyGameEngine PRIVATE

@@ -14,7 +14,7 @@ bool D3D12Texture::Initialize(D3D12Device* device, const RHITextureDesc& desc)
 		return false;
 	}
 
-	DE_ASSERT(m_IsInitialized);
+	DE_ASSERT(!m_IsInitialized);
 
 	// 创建资源描述符
 	m_ResourceDesc = CreateResourceDesc(desc);
@@ -54,7 +54,7 @@ bool D3D12Texture::InitializeFromReource(D3D12Device* device, ID3D12Resource* re
 		return false;
 	}
 
-	DE_ASSERT(m_IsInitialized);
+	DE_ASSERT(!m_IsInitialized);
 
 	m_texture = resource;
 	m_ResourceDesc = resource->GetDesc();

@@ -8,6 +8,6 @@ Logger::Logger()
 
 Logger& Logger::GetInstance()
 {
-	Logger sLogger;
+	static Logger sLogger;
 	return sLogger;
 }

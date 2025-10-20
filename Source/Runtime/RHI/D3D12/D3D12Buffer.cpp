@@ -91,7 +91,7 @@ bool D3D12Buffer::Map(RHIBufferMappedData& mappedData)
 		return true;
 	}
 
-	if ( !(E_UINT32(m_Desc.Access) & (E_UINT32(ERHIBufferAccess::CPUWrite) | E_UINT32(ERHIBufferAccess::CPUWrite))) )
+	if (!(E_UINT32(m_Desc.Access) & (E_UINT32(ERHIBufferAccess::CPURead) | E_UINT32(ERHIBufferAccess::CPUWrite))))
 	{
 		LOG_ERROR("D3D12Buffer::Map failed: buffer is not CPU accessible");
 		return false;
@@ -124,7 +124,7 @@ bool D3D12Buffer::Map(RHIBufferMappedData& mappedData)
 	mappedData.RowPitch = m_Desc.Stride; // 对于缓冲区, 行距等于步长
 	mappedData.DepthPitch = m_Desc.Size; // 对于缓冲区, 深度距等于大小
 
-	return false;
+	return true;
 }
 
 void D3D12Buffer::Unmap()
@@ -235,7 +235,7 @@ D3D12_HEAP_PROPERTIES D3D12Buffer::GetHeapProperties(const RHIBufferDesc& desc)
 	heapProps.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
 	heapProps.MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN;
 
-	return D3D12_HEAP_PROPERTIES();
+	return heapProps;
 }
 
 D3D12_RESOURCE_STATES D3D12Buffer::GetInitialResourceState(const RHIBufferDesc& desc)
@@ -299,8 +299,8 @@ void D3D12Buffer::CreateViews(const RHIBufferDesc& desc)
 	// 创建索引缓冲区视图
 	if (usageFlag & E_UINT32(ERHIBufferUsage::IndexBuffer))
 	{
-		m_VertexBufferView.BufferLocation = m_Resource->GetGPUVirtualAddress();
-		m_VertexBufferView.SizeInBytes = desc.Size;
+		m_IndexBufferView.BufferLocation = m_Resource->GetGPUVirtualAddress();
+		m_IndexBufferView.SizeInBytes = desc.Size;
 		if (desc.Stride == 2)
 		{
 			m_IndexBufferView.Format = DXGI_FORMAT_R16_UINT;

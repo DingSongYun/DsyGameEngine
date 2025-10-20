@@ -43,7 +43,7 @@ bool D3D12CommandQueue::Initialize(D3D12Device* device, ERHICommandQueueType typ
 	}
 
 	LOG_INFO("D3D12CommandQueue initialized successfully.");
-	return false;
+	return true;
 }
 
 void D3D12CommandQueue::Shutdown()

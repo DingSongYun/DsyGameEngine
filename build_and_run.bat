@@ -32,6 +32,7 @@ if errorlevel 1 (
 if /i "%ACTION%"=="clean" goto :clean
 if /i "%ACTION%"=="build" goto :build
 if /i "%ACTION%"=="run" goto :run
+if /i "%ACTION%"=="test" goto :test
 if /i "%ACTION%"=="rebuild" goto :rebuild
 if /i "%ACTION%"=="help" goto :help
 
@@ -98,6 +99,58 @@ echo ========================================
 echo Program finished with exit code: %errorlevel%
 goto :end
 
+:test
+echo.
+echo [TEST] Config: %CONFIG%
+
+:: Ensure project is configured
+if not exist "build" (
+    echo [TEST] Generating project files...
+    cmake -B build -S . -G "Visual Studio 17 2022" -A x64
+    if errorlevel 1 (
+        echo Error: CMake configuration failed!
+        pause
+        exit /b 1
+    )
+)
+
+echo.
+echo [TEST] Building tests target (DsyEngineTests)...
+cmake --build build --config %CONFIG% --target DsyEngineTests
+if errorlevel 1 (
+    echo.
+    echo Error: Tests build failed!
+    pause
+    exit /b 1
+)
+
+set "TEST_EXE=build\Tests\%CONFIG%\DsyEngineTests.exe"
+if not exist "%TEST_EXE%" (
+    echo Error: Test executable not found: %TEST_EXE%
+    echo Fallback: building all targets...
+    cmake --build build --config %CONFIG%
+)
+
+if not exist "%TEST_EXE%" (
+    echo Error: Test executable still not found.
+    pause
+    exit /b 1
+)
+
+echo.
+echo [TEST] Running GoogleTest suite...
+"%TEST_EXE%" --gtest_color=yes
+set "TEST_EXIT=%ERRORLEVEL%"
+echo.
+if not "%TEST_EXIT%"=="0" (
+    echo [TEST] Failed. Exit code: %TEST_EXIT%
+    pause
+    exit /b %TEST_EXIT%
+) else (
+    echo [TEST] All tests passed.
+)
+goto :end
+
 :build_and_run
 call :build
 if errorlevel 1 exit /b 1
@@ -116,6 +169,7 @@ echo.
 echo Actions:
 echo   build    - Build the project (default)
 echo   run      - Run the executable (build if needed)
+echo   test     - Build and run unit tests
 echo   clean    - Clean build directory
 echo   rebuild  - Clean and build
 echo   help     - Show this help
@@ -128,6 +182,7 @@ echo Examples:
 echo   build_and_run.bat
 echo   build_and_run.bat build Release
 echo   build_and_run.bat run
+echo   build_and_run.bat test Debug
 echo   build_and_run.bat clean
 echo   build_and_run.bat rebuild Release
 echo.

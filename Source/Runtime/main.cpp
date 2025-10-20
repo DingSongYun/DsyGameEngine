@@ -16,6 +16,11 @@ void testRanges() {
 	auto even = numbers | std::views::filter([](int n) { return n % 3 == 0; });
 }
 
+void TestRenderSimpleTriangle()
+{
+	
+}
+
 int main()
 {
 	int ret = 0;

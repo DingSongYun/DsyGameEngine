@@ -34,3 +34,6 @@ include_directories("${PROJECT_SOURCE_DIR}/Runtime")
 
 # 
 add_subdirectory(Runtime)
+
+# Include test suite
+add_subdirectory(${PROJECT_SOURCE_DIR}/../Tests ${PROJECT_BINARY_DIR}/Tests)
